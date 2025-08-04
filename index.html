@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniel Favela | Desarrollador Web</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6c63ff;
+      --primary-dark: #564fcc;
+      --secondary: #ff6584;
+      --dark: #2d2d2d;
+      --light: #f8f9fa;
+      --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    /* Header */
+    header {
+      background: var(--gradient);
+      color: white;
+      padding: 15vh 20px 10vh;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+      opacity: 0.3;
+    }
+    
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 8vw, 3.5rem);
+      font-weight: 700;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      animation: fadeInDown 1s ease;
+      line-height: 1.2;
+    }
+    
+    header p {
+      font-size: clamp(1.1rem, 4vw, 1.4rem);
+      margin: 15px 0 30px;
+      opacity: 0.9;
+      animation: fadeInUp 1s ease 0.2s forwards;
+      opacity: 0;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .botones {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      animation: fadeIn 1s ease 0.4s forwards;
+      opacity: 0;
+    }
+    
+    .boton {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 5px;
+      padding: 12px 25px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      border: 2px solid rgba(255,255,255,0.3);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      font-size: clamp(0.9rem, 3vw, 1rem);
+      min-width: 180px;
+    }
+    
+    .boton:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    
+    .boton i {
+      margin-right: 8px;
+    }
+    
+    .boton.primary {
+      background: white;
+      color: var(--primary);
+    }
+    
+    .boton.primary:hover {
+      background: rgba(255,255,255,0.9);
+    }
+    
+    /* Main Content */
+    main {
+      padding: 20px;
+    }
+    
+    .tarjetas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: 25px;
+      padding: 60px 0;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .tarjeta {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .tarjeta.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .tarjeta:nth-child(1) { transition-delay: 0.1s; }
+    .tarjeta:nth-child(2) { transition-delay: 0.2s; }
+    .tarjeta:nth-child(3) { transition-delay: 0.3s; }
+    .tarjeta:nth-child(4) { transition-delay: 0.4s; }
+    .tarjeta:nth-child(5) { transition-delay: 0.5s; }
+    
+    .tarjeta:hover {
+      transform: translateY(-10px) !important;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+    
+    .tarjeta h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .tarjeta h2 i {
+      margin-right: 12px;
+      font-size: 1.3em;
+    }
+    
+    .tarjeta p {
+      color: #555;
+      margin-bottom: 10px;
+    }
+    
+    .tarjeta ul {
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+    
+    .tarjeta li {
+      margin-bottom: 8px;
+    }
+    
+    .tarjeta a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    
+    .tarjeta a:hover {
+      color: var(--secondary);
+      text-decoration: underline;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: var(--dark);
+      color: white;
+      font-size: 1em;
+    }
+    
+    footer p {
+      opacity: 0.8;
+      margin-bottom: 10px;
+    }
+    
+    footer a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+    
+    /* Animaciones */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Efecto de partículas */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    .particle {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float linear infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+    
+    /* Menú hamburguesa para móviles */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.3);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+    
+    .menu-toggle.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+    
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100vh;
+      background: rgba(44, 44, 44, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      padding: 80px 30px;
+      transition: right 0.3s ease;
+    }
+    
+    .nav-menu.active {
+      right: 0;
+    }
+    
+    .nav-menu a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 15px 0;
+      font-size: 1.2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: color 0.3s;
+    }
+    
+    .nav-menu a:hover {
+      color: var(--secondary);
+    }
+    
+    /* Media Queries */
+    @media (max-width: 992px) {
+      header {
+        padding: 12vh 20px 8vh;
+      }
+      
+      .tarjetas {
+        gap: 20px;
+        padding: 50px 0;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        min-height: auto;
+        padding: 100px 20px 60px;
+      }
+      
+      .botones {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .boton {
+        width: 100%;
+        max-width: 280px;
+      }
+      
+      .menu-toggle {
+        display: flex;
+      }
+      
+      .tarjetas {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 30px 0;
+      }
+      
+      .tarjeta {
+        padding: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      header {
+        padding: 80px 20px 50px;
+      }
+      
+      header h1 {
+        font-size: 2.2rem;
+      }
+      
+      header p {
+        font-size: 1.1rem;
+      }
+      
+      .tarjeta h2 {
+        font-size: 1.3rem;
+      }
+      
+      footer {
+        padding: 25px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Menú móvil -->
+  <button class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  
+  <nav class="nav-menu" id="navMenu">
+    <a href="#inicio">Inicio</a>
+    <a href="#habilidades">Habilidades</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#contacto">Contacto</a>
+    <a href="cv.pdf" target="_blank">Descargar CV</a>
+  </nav>
+
+  <header id="inicio">
+    <div class="particles" id="particles"></div>
+    <div class="container">
+      <h1>Daniel Favela</h1>
+      <p>Desarrollador Web Full Stack | Especialista en Sistemas Eficientes</p>
+      <div class="botones">
+        <a href="#proyectos" class="boton primary">
+          <i class="fas fa-laptop-code"></i> Ver Proyectos
+        </a>
+        <a href="cv.pdf" class="boton" target="_blank">
+          <i class="fas fa-file-download"></i> Descargar CV
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="tarjetas" id="habilidades">
+      <div class="tarjeta">
+        <h2><i class="fas fa-code"></i> Habilidades Técnicas</h2>
+        <p>Experto en tecnologías web modernas:</p>
+        <ul>
+          <li>HTML5, CSS3, JavaScript (ES6+)</li>
+          <li>PHP, MySQL, APIs REST</li>
+          <li>FPDF, DOMpdf para generación de PDF</li>
+          <li>Bootstrap, Tailwind CSS</li>
+          <li>React, Vue.js (básico)</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h2><i class="fas fa-tools"></i> Herramientas</h2>
+        <p>Flujo de trabajo profesional con:</p>
+        <ul>
+          <li>VS Code con extensiónes avanzadas</li>
+          <li>XAMPP/WAMP para entornos locales</li>
+          <li>Git y GitHub para control de versiones</li>
+          <li>phpMyAdmin para gestión de bases de datos</li>
+          <li>Figma para prototipado</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h2><i class="fas fa-graduation-cap"></i> Formación</h2>
+        <p><strong>Técnico en Programación</strong> con especialización en desarrollo web.</p>
+        <p style="margin-top: 10px;">Prácticas profesionales en empresa del sector, desarrollando sistemas reales con:</p>
+        <ul>
+          <li>Autenticación de usuarios</li>
+          <li>CRUD completos</li>
+          <li>Generación de reportes en PDF</li>
+          <li>Integración con APIs externas</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="tarjetas" id="proyectos">
+      <div class="tarjeta">
+        <h2><i class="fas fa-rocket"></i> Proyectos Destacados</h2>
+        <p><strong>Sistema Escolar Integral</strong> con:</p>
+        <ul>
+          <li>Gestión completa de alumnos y calificaciones</li>
+          <li>Sistema de roles y permisos</li>
+          <li>Filtros avanzados y búsquedas</li>
+          <li>Generación automática de boletas en PDF</li>
+          <li>Interfaz intuitiva y responsive</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h2><i class="fas fa-project-diagram"></i> Otros Proyectos</h2>
+        <ul>
+          <li><strong>E-commerce:</strong> Carrito de compras, pasarela de pagos</li>
+          <li><strong>Blog personal:</strong> CMS custom, sistema de comentarios</li>
+          <li><strong>Aplicación de tareas:</strong> Drag & drop, notificaciones</li>
+          <li><strong>Landing pages:</strong> Optimizadas para conversión</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta" id="contacto">
+        <h2><i class="fas fa-envelope"></i> Contacto</h2>
+        <p><i class="fas fa-envelope"></i> Email: daniel@ejemplo.com</p>
+        <p><i class="fab fa-github"></i> GitHub: <a href="https://github.com/danielfavela" target="_blank">github.com/danielfavela</a></p>
+        <p><i class="fab fa-linkedin"></i> LinkedIn: <a href="#" target="_blank">linkedin.com/in/danielfavela</a></p>
+        <p><i class="fas fa-phone"></i> Teléfono: +52 123 456 7890</p>
+        <p><i class="fas fa-map-marker-alt"></i> Ubicación: Ciudad de México</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Daniel Favela. Todos los derechos reservados.</p>
+    <p>Hecho con <i class="fas fa-heart" style="color: var(--secondary);"></i> y mucho código</p>
+  </footer>
+
+  <script>
+    // Animación para las tarjetas al hacer scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const tarjetas = document.querySelectorAll('.tarjeta');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      tarjetas.forEach(tarjeta => {
+        observer.observe(tarjeta);
+      });
+      
+      // Crear partículas
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = window.innerWidth < 768 ? 15 : 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Tamaño aleatorio entre 3px y 8px
+        const size = Math.random() * 5 + 3;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Posición aleatoria
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Duración de animación aleatoria
+        const duration = Math.random() * 20 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Retraso aleatorio
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+      
+      // Menú móvil
+      const menuToggle = document.getElementById('menuToggle');
+      const navMenu = document.getElementById('navMenu');
+      
+      menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+      });
+      
+      // Cerrar menú al hacer clic en un enlace
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          menuToggle.classList.remove('active');
+          navMenu.classList.remove('active');
+        });
+      });
+      
+      // Año actual en el footer
+      document.getElementById('year').textContent = new Date().getFullYear();
+      
+      // Suavizar scroll para navegadores que no soportan scroll-behavior
+      if (!('scrollBehavior' in document.documentElement.style)) {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+              behavior: 'smooth'
+            });
+          });
+        });
+      }
+    });
+    
+    // Ajustar altura del header en móviles
+    function adjustHeaderHeight() {
+      if (window.innerWidth < 768) {
+        const header = document.querySelector('header');
+        header.style.minHeight = `${window.innerHeight}px`;
+      }
+    }
+    
+    window.addEventListener('resize', adjustHeaderHeight);
+    adjustHeaderHeight();
+  </script>
+</body>
+</html>
