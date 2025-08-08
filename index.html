@@ -1,627 +1,643 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daniel Favela | Desarrollador Web</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #6c63ff;
-      --primary-dark: #564fcc;
-      --secondary: #ff6584;
-      --dark: #2d2d2d;
-      --light: #f8f9fa;
-      --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--light);
-      color: var(--dark);
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-    
-    /* Header */
-    header {
-      background: var(--gradient);
-      color: white;
-      padding: 15vh 20px 10vh;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
-      opacity: 0.3;
-    }
-    
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-      width: 100%;
-    }
-    
-    header h1 {
-      margin: 0;
-      font-size: clamp(2.5rem, 8vw, 3.5rem);
-      font-weight: 700;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      animation: fadeInDown 1s ease;
-      line-height: 1.2;
-    }
-    
-    header p {
-      font-size: clamp(1.1rem, 4vw, 1.4rem);
-      margin: 15px 0 30px;
-      opacity: 0.9;
-      animation: fadeInUp 1s ease 0.2s forwards;
-      opacity: 0;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .botones {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      animation: fadeIn 1s ease 0.4s forwards;
-      opacity: 0;
-    }
-    
-    .boton {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin: 5px;
-      padding: 12px 25px;
-      background: rgba(255,255,255,0.2);
-      backdrop-filter: blur(10px);
-      color: white;
-      text-decoration: none;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      border: 2px solid rgba(255,255,255,0.3);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      font-size: clamp(0.9rem, 3vw, 1rem);
-      min-width: 180px;
-    }
-    
-    .boton:hover {
-      background: rgba(255,255,255,0.3);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-    
-    .boton i {
-      margin-right: 8px;
-    }
-    
-    .boton.primary {
-      background: white;
-      color: var(--primary);
-    }
-    
-    .boton.primary:hover {
-      background: rgba(255,255,255,0.9);
-    }
-    
-    /* Main Content */
-    main {
-      padding: 20px;
-    }
-    
-    .tarjetas {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-      gap: 25px;
-      padding: 60px 0;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .tarjeta {
-      background: white;
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    
-    .tarjeta.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .tarjeta:nth-child(1) { transition-delay: 0.1s; }
-    .tarjeta:nth-child(2) { transition-delay: 0.2s; }
-    .tarjeta:nth-child(3) { transition-delay: 0.3s; }
-    .tarjeta:nth-child(4) { transition-delay: 0.4s; }
-    .tarjeta:nth-child(5) { transition-delay: 0.5s; }
-    
-    .tarjeta:hover {
-      transform: translateY(-10px) !important;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    }
-    
-    .tarjeta h2 {
-      margin-top: 0;
-      font-size: 1.4rem;
-      color: var(--primary);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-    }
-    
-    .tarjeta h2 i {
-      margin-right: 12px;
-      font-size: 1.3em;
-    }
-    
-    .tarjeta p {
-      color: #555;
-      margin-bottom: 10px;
-    }
-    
-    .tarjeta ul {
-      padding-left: 20px;
-      margin: 15px 0;
-    }
-    
-    .tarjeta li {
-      margin-bottom: 8px;
-    }
-    
-    .tarjeta a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
-    
-    .tarjeta a:hover {
-      color: var(--secondary);
-      text-decoration: underline;
-    }
-    
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      background: var(--dark);
-      color: white;
-      font-size: 1em;
-    }
-    
-    footer p {
-      opacity: 0.8;
-      margin-bottom: 10px;
-    }
-    
-    footer a {
-      color: var(--secondary);
-      text-decoration: none;
-    }
-    
-    /* Animaciones */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    /* Efecto de partículas */
-    .particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-    
-    .particle {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: float linear infinite;
-    }
-    
-    @keyframes float {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(-100vh) rotate(360deg); }
-    }
-    
-    /* Menú hamburguesa para móviles */
-    .menu-toggle {
-      display: none;
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: rgba(255,255,255,0.2);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255,255,255,0.3);
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      cursor: pointer;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      transition: all 0.3s ease;
-    }
-    
-    .menu-toggle span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: white;
-      transition: all 0.3s ease;
-    }
-    
-    .menu-toggle.active span:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-    
-    .menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-    
-    .menu-toggle.active span:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
-    
-    .nav-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 80%;
-      max-width: 300px;
-      height: 100vh;
-      background: rgba(44, 44, 44, 0.95);
-      backdrop-filter: blur(10px);
-      z-index: 999;
-      padding: 80px 30px;
-      transition: right 0.3s ease;
-    }
-    
-    .nav-menu.active {
-      right: 0;
-    }
-    
-    .nav-menu a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      padding: 15px 0;
-      font-size: 1.2rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      transition: color 0.3s;
-    }
-    
-    .nav-menu a:hover {
-      color: var(--secondary);
-    }
-    
-    /* Media Queries */
-    @media (max-width: 992px) {
-      header {
-        padding: 12vh 20px 8vh;
-      }
-      
-      .tarjetas {
-        gap: 20px;
-        padding: 50px 0;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      header {
-        min-height: auto;
-        padding: 100px 20px 60px;
-      }
-      
-      .botones {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .boton {
-        width: 100%;
-        max-width: 280px;
-      }
-      
-      .menu-toggle {
-        display: flex;
-      }
-      
-      .tarjetas {
-        grid-template-columns: 1fr;
-        gap: 15px;
-        padding: 30px 0;
-      }
-      
-      .tarjeta {
-        padding: 20px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      header {
-        padding: 80px 20px 50px;
-      }
-      
-      header h1 {
-        font-size: 2.2rem;
-      }
-      
-      header p {
-        font-size: 1.1rem;
-      }
-      
-      .tarjeta h2 {
-        font-size: 1.3rem;
-      }
-      
-      footer {
-        padding: 25px 15px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- Menú móvil -->
-  <button class="menu-toggle" id="menuToggle">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  
-  <nav class="nav-menu" id="navMenu">
-    <a href="#inicio">Inicio</a>
-    <a href="#habilidades">Habilidades</a>
-    <a href="#proyectos">Proyectos</a>
-    <a href="#contacto">Contacto</a>
-    <a href="cv.pdf" target="_blank">Descargar CV</a>
-  </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daniel Favela | Desarrollador Web Full Stack</title>
+    <link rel="icon" href="images/tao.jpg" type="image/jpeg" />
+    <meta
+      name="description"
+      content="Portafolio profesional de Daniel Favela, Desarrollador Web Full Stack especializado en crear soluciones digitales eficientes y modernas."
+    />
 
-  <header id="inicio">
-    <div class="particles" id="particles"></div>
-    <div class="container">
-      <h1>Daniel Favela</h1>
-      <p>Desarrollador Web Full Stack | Especialista en Sistemas Eficientes</p>
-      <div class="botones">
-        <a href="#proyectos" class="boton primary">
-          <i class="fas fa-laptop-code"></i> Ver Proyectos
-        </a>
-        <a href="cv.pdf" class="boton" target="_blank">
+    <!-- Enlaces CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <!-- Menú móvil -->
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      aria-label="Menú de navegación"
+      aria-expanded="false"
+    >
+      <span class="menu-line"></span>
+      <span class="menu-line"></span>
+      <span class="menu-line"></span>
+    </button>
+
+    <nav class="nav-menu" id="navMenu" aria-label="Navegación principal">
+      <div class="nav-menu-container">
+        <a href="#inicio" class="nav-link active"
+          ><i class="fas fa-home"></i> Inicio</a
+        >
+        <a href="#sobre-mi" class="nav-link"
+          ><i class="fas fa-user"></i> Sobre Mí</a
+        >
+        <a href="#habilidades" class="nav-link"
+          ><i class="fas fa-code"></i> Habilidades</a
+        >
+        <a href="#proyectos" class="nav-link"
+          ><i class="fas fa-laptop-code"></i> Proyectos</a
+        >
+        <a href="#contacto" class="nav-link"
+          ><i class="fas fa-envelope"></i> Contacto</a
+        >
+        <a href="cv.pdf" target="_blank" class="nav-link download-cv">
           <i class="fas fa-file-download"></i> Descargar CV
         </a>
       </div>
-    </div>
-  </header>
+    </nav>
 
-  <main>
-    <section class="tarjetas" id="habilidades">
-      <div class="tarjeta">
-        <h2><i class="fas fa-code"></i> Habilidades Técnicas</h2>
-        <p>Experto en tecnologías web modernas:</p>
-        <ul>
-          <li>HTML5, CSS3, JavaScript (ES6+)</li>
-          <li>PHP, MySQL, APIs REST</li>
-          <li>FPDF, DOMpdf para generación de PDF</li>
-          <li>Bootstrap, Tailwind CSS</li>
-          <li>React, Vue.js (básico)</li>
-        </ul>
+    <header id="inicio" role="banner" aria-label="Sección de inicio">
+      <div class="particles" id="particles" aria-hidden="true"></div>
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
       </div>
 
-      <div class="tarjeta">
-        <h2><i class="fas fa-tools"></i> Herramientas</h2>
-        <p>Flujo de trabajo profesional con:</p>
-        <ul>
-          <li>VS Code con extensiónes avanzadas</li>
-          <li>XAMPP/WAMP para entornos locales</li>
-          <li>Git y GitHub para control de versiones</li>
-          <li>phpMyAdmin para gestión de bases de datos</li>
-          <li>Figma para prototipado</li>
-        </ul>
+      <div class="container">
+        <div class="hero-content">
+          <h1>
+            <span
+              style="
+                background: linear-gradient(to right, #64ffda, #564fcc);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                -webkit-text-fill-color: transparent;
+                font-weight: bold;
+              "
+            >
+              Daniel Favela
+            </span>
+
+            <span class="title-underline"></span>
+          </h1>
+
+          <p class="subtitle" aria-live="polite">
+            <span class="typing-text"> </span>
+            <span class="typed-cursor">|</span>
+          </p>
+
+          <div class="botones" aria-label="Acciones principales">
+            <a href="#proyectos" class="boton primary" role="button">
+              <i class="fas fa-laptop-code" aria-hidden="true"></i> Ver
+              Proyectos
+            </a>
+            <a href="#contacto" class="boton secondary" role="button">
+              <i class="fas fa-paper-plane" aria-hidden="true"></i> Contactar
+            </a>
+          </div>
+
+          <div class="scroll-indicator">
+            <div class="mouse">
+              <div class="wheel"></div>
+            </div>
+            <br />
+            <hr />
+          </div>
+
+         <nav class="social-links" aria-label="Redes sociales">
+  <a
+    href="https://github.com/daninsano1703"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="social-link"
+    aria-label="GitHub"
+  >
+    <i class="fab fa-github" aria-hidden="true"></i>
+  </a>
+  <a
+    href="https://www.linkedin.com/in/daniel-favela-a27531332"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="social-link"
+    aria-label="LinkedIn"
+  >
+    <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+  </a>
+  <a
+    href="https://instagram.com/daniel_favel4"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="social-link"
+    aria-label="Instagram"
+  >
+    <i class="fab fa-instagram" aria-hidden="true"></i>
+  </a>
+  <a
+    href="https://wa.me/+528713968800"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="social-link"
+    aria-label="WhatsApp"
+  >
+    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+  </a>
+</nav>
+
+        </div>
       </div>
+    </header>
 
-      <div class="tarjeta">
-        <h2><i class="fas fa-graduation-cap"></i> Formación</h2>
-        <p><strong>Técnico en Programación</strong> con especialización en desarrollo web.</p>
-        <p style="margin-top: 10px;">Prácticas profesionales en empresa del sector, desarrollando sistemas reales con:</p>
-        <ul>
-          <li>Autenticación de usuarios</li>
-          <li>CRUD completos</li>
-          <li>Generación de reportes en PDF</li>
-          <li>Integración con APIs externas</li>
-        </ul>
+    <main>
+      <!-- Sección Sobre Mí -->
+      <section id="sobre-mi">
+        <div class="container">
+          <div class="section-title">
+            <h2>Sobre Mí</h2>
+            <p>Skills, experiencia y esas cosas.</p>
+          </div>
+
+          <div class="tarjetas">
+            <!-- Tarjeta Perfil -->
+            <div class="tarjeta">
+              <h2><i class="fas fa-user-tie"></i> Perfil Profesional</h2>
+             <strong style="color: gray;">
+Me gusta que las cosas funcionen bien y se vean bien
+
+</strong>
+<br>
+<br>
+
+
+
+
+              <p>
+                Creo sistemas web que funcionan. Nada de complicaciones
+                innecesarias, solo cosas que realmente sirven y se ven bien.
+              </p>
+              <p>
+                Me enfoco en que todo sea claro, útil y cómodo. Si algo no tiene
+                sentido, lo arreglo o lo quito, simple.
+              </p>
+            </div>
+
+            <!-- Tarjeta Experiencia -->
+            <div class="tarjeta">
+              <h2><i class="fas fa-briefcase"></i> Experiencia</h2>
+              <p>
+                <strong>Desarrollador Web Full Stack</strong> – Proyectos
+                Independientes
+              </p>
+              <ul>
+                <li>
+                  Aplicación web personalizada para
+                  <strong
+                    ><a
+                      href="https://www.fundacioneduardotriciogomez.org"
+                      target="_blank"
+                      >Instituto Eduardo Tricio Gómez</a
+                    ></strong
+                  >. El sistema permite gestionar asistencia, reportes, niveles
+                  de lectura, generación de PDFs y control de usuarios - 2024.
+                </li>
+                <li>
+                  Aplicación web a medida para una academia de
+                  música, con funciones para administrar alumnos, clases, pagos
+                  y horarios. - 2025
+                </li>
+              <li>
+  Tecnologías utilizadas: 
+  </li>
+  <li>
+  <i class="devicon-html5-plain colored" title="HTML5"></i>
+  <i class="devicon-css3-plain colored" title="CSS3"></i>
+  <i class="devicon-javascript-plain colored" title="JavaScript"></i>
+  <i class="devicon-php-plain colored" title="PHP"></i>
+  <i class="devicon-mysql-plain colored" title="MySQL"></i>
+  <i class="devicon-bootstrap-plain colored" title="Bootstrap"></i>
+  
+</li>
+              </ul>
+            </div>
+
+            <!-- Tarjeta Educación -->
+            <div class="tarjeta">
+              <h2><i class="fas fa-graduation-cap"></i> Educación</h2>
+              <p>
+                <strong
+                  >Técnico Superior en Entornos Virtuales y Negocios
+                  Digitales</strong
+                >
+                –
+                <a
+                  href="https://www.google.com/maps/place/Universidad+Tecnológica+de+Torreón/@25.5324404,-103.3182783,17z/data=!4m6!3m5!1s0x868fc48455d823cb:0xc18fad7b464487e4!8m2!3d25.5325625!4d-103.3216807!16s%2Fg%2F11_rjr8jd?entry=ttu&g_ep=EgoyMDI1MDgwNi4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                >
+                  Universidad Tecnológica de Torreón
+                  <i class="fas fa-map-marker-alt"></i> </a
+                ><br />
+                <small>2022 – 2024</small>
+              </p>
+              <p>
+                Estudié para crear soluciones web que no solo funcionen, sino
+                que vendan y se mantengan solas. Sí, también le sé al marketing
+                y a las plataformas.
+              </p>
+              <p>
+                ¿Programación con diseño y marketing? ya se que suena raro, pero
+                es justo lo que hago.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección Habilidades -->
+      <section id="habilidades">
+        <div class="container">
+          <div class="section-title">
+            <h2>Tecnologías que uso</h2>
+            <p>
+              Mi caja de herramientas
+            </p>
+          </div>
+
+          <div class="skills-container">
+            <div class="skill-item">
+              <div class="skill-icon"><i class="fab fa-html5"></i></div>
+              <h3>HTML5</h3>
+              <p>Estructura de páginas web</p>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+              <h3>CSS3</h3>
+              <p>Diseño, colores y estilos</p>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-icon"><i class="fab fa-js"></i></div>
+              <h3>JavaScript</h3>
+              <p>Interacción y funciones dinámicas</p>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-icon"><i class="fab fa-php"></i></div>
+              <h3>PHP</h3>
+              <p>Lógica del servidor y bases de datos</p>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-icon"><i class="fas fa-database"></i></div>
+              <h3>MySQL</h3>
+              <p>Guardar y consultar datos</p>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
+              <h3>Git</h3>
+              <p>Control de versiones de código</p>
+            </div>
+
+            
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección Proyectos -->
+      <section id="proyectos">
+        <div class="container">
+          <div class="section-title">
+            <h2>Proyectos reales, nada de teorías</h2>
+            <p>
+              Algunos proyectos que terminé y que siguen funcionando.
+            </p>
+          </div>
+
+          <div class="projects-container">
+            <!-- Proyecto 1 -->
+            <div class="project-card">
+              <div class="project-image">
+                <div class="image-carousel">
+                  <img
+                    src="images/secu1.jpg"
+                    alt="Sistema Escolar"
+                    class="active"
+                  />
+                  <img src="images/secu2.jpg" alt="Sistema Escolar" />
+                  <img src="images/secu3.jpg" alt="Sistema Escolar" />
+                </div>
+                <span class="project-tag">Full Stack</span>
+              </div>
+
+              <div class="project-content">
+                <h3>Sistema Escolar Integral</h3>
+                <p>
+                  Una plataforma para manejar alumnos, calificaciones,
+                  asistencias, pasar lista y generar reportes en PDF —
+                  básicamente todo lo aburrido que alguien en una oficina tiene
+                  que hacer. y tiene respaldo automático. Porque sufrir solo no
+                  es divertido, mejor que sufra la app.
+                </p>
+
+                <div class="project-tech">
+                  <span class="tech-tag"
+                    ><i class="fab fa-html5"></i> HTML</span
+                  >
+                  <span class="tech-tag"
+                    ><i class="fab fa-css3-alt"></i> CSS</span
+                  >
+                  <span class="tech-tag"><i class="fab fa-js"></i> JS</span>
+                  <span class="tech-tag"><i class="fab fa-php"></i> PHP</span>
+                  <span class="tech-tag"
+                    ><i class="fas fa-database"></i> MySQL</span
+                  >
+                  <span class="tech-tag"
+                    ><i class="fas fa-file-pdf"></i> FPDF</span
+                  >
+                  <span class="tech-tag"
+                    ><i class="fab fa-bootstrap"></i> Bootstrap</span
+                  >
+                </div>
+
+                <div class="project-links">
+                  <a
+                    href="https://github.com/DanInsano1703/School-CRUD-system"
+                    class="project-link secondary"
+                  >
+                    <i class="fab fa-github"></i> Código
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Proyecto 2 -->
+            <div class="project-card">
+              <div class="project-image">
+                <div class="image-carousel">
+                  <img
+                    src="images/music1.jpg"
+                    alt="Reproductor Musical"
+                    class="active"
+                  />
+                  <img src="images/music2.jpg" alt="Reproductor Musical" />
+                  <img src="images/music3.jpg" alt="Reproductor Musical" />
+                </div>
+                <span class="project-tag">Full Stack</span>
+              </div>
+
+              <div class="project-content">
+                <h3>Sistema de Gestión para Academia de Música</h3>
+                <p>
+                  Una app web para una academia de música que hace todo lo
+                  aburrido: gestionar alumnos, pagos, horarios y progreso. Tiene
+                  login para que nadie se cuele y respaldo automático porque,
+                  claro, perder datos es para amateurs.
+                </p>
+
+                <div class="project-tech">
+                  <span class="tech-tag"
+                    ><i class="fab fa-html5"></i> HTML</span
+                  >
+                  <span class="tech-tag"
+                    ><i class="fab fa-css3-alt"></i> CSS</span
+                  >
+                  <span class="tech-tag"><i class="fab fa-js"></i> JS</span>
+                  <span class="tech-tag"><i class="fab fa-php"></i> PHP</span>
+                  <span class="tech-tag"
+                    ><i class="fas fa-database"></i> MySQL</span
+                  >
+                  <span class="tech-tag"
+                    ><i class="fas fa-file-pdf"></i> FPDF</span
+                  >
+                  <span class="tech-tag"
+                    ><i class="fab fa-bootstrap"></i> Bootstrap</span
+                  >
+                </div>
+
+                <div class="project-links">
+                  <a
+                    href="https://github.com/DanInsano1703/My_php_project"
+                    class="project-link secondary"
+                  >
+                    <i class="fab fa-github"></i> Código
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección Contacto -->
+      <section id="contacto">
+        <div class="container">
+          <div class="section-title">
+            <h2>Contacto</h2>
+            <p>
+              ¿Tienes algo en mente? ¡Suéltalo!. Yo veo cómo hacerlo realidad.
+            </p>
+          </div>
+
+          <div class="contact-options">
+            <!-- WhatsApp -->
+            <a
+              href="https://wa.me/528713968800?text=Hola%20Daniel,%20vi%20tu%20portafolio%20y..."
+              class="contact-card whatsapp"
+            >
+              <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+              <h3>WhatsApp</h3>
+              <p>¡Mándame un mensaje! (sí respondo)</p>
+              <span class="contact-cta"
+                >Abrir chat <i class="fas fa-arrow-right"></i
+              ></span>
+            </a>
+
+            <!-- Email -->
+            <a
+              href="mailto:danifavela6@gmail.com?subject=Contacto%20desde%20portafolio"
+              class="contact-card email"
+            >
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+              <h3>Correo</h3>
+              <p>¿Formalito? Envíame un mail.</p>
+              <span class="contact-cta"
+                >Abrir correo <i class="fas fa-arrow-right"></i
+              ></span>
+            </a>
+
+            <!-- Teléfono -->
+            <a href="tel:+528713968800" class="contact-card phone">
+              <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+              <h3>Llamada</h3>
+              <p>Para los días en que el teclado da flojera. Llamame.</p>
+              <span class="contact-cta"
+                >Llamar ahora <i class="fas fa-arrow-right"></i
+              ></span>
+            </a>
+          </div>
+
+          <div class="social-profiles">
+            <h4 class="social-title">
+              También ando por acá <i class="fas fa-hand-point-down"></i>
+            </h4>
+
+            <div class="social-grid">
+              <!-- GitHub -->
+              <a
+                href="https://github.com/daninsano1703"
+                target="_blank"
+                class="social-profile github"
+              >
+                <div class="social-profile__icon">
+                  <i class="fab fa-github"></i>
+                </div>
+                <div class="social-profile__info">
+                  <span class="social-profile__name">GitHub</span>
+                  <span class="social-profile__username">@daninsano1703</span>
+                </div>
+                <div class="social-profile__arrow">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              </a>
+
+              <!-- LinkedIn -->
+              <a
+                href="https://linkedin.com/in/daniel-favela-a27531332"
+                target="_blank"
+                class="social-profile linkedin"
+              >
+                <div class="social-profile__icon">
+                  <i class="fab fa-linkedin-in"></i>
+                </div>
+                <div class="social-profile__info">
+                  <span class="social-profile__name">LinkedIn</span>
+                  <span class="social-profile__username">Daniel Favela</span>
+                </div>
+                <div class="social-profile__arrow">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="pro-footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <span class="footer-logo">Daniel Favela</span>
+          <p class="footer-tagline">Desarrollador Web Full Stack</p>
+        </div>
+
+        <div class="footer-grid">
+          <div class="footer-nav">
+            <h3 class="footer-subtitle">Navegación</h3>
+            <ul class="footer-menu">
+              <li>
+                <a href="#inicio"
+                  ><i class="fas fa-chevron-right"></i> Inicio</a
+                >
+              </li>
+              <li>
+                <a href="#sobre-mi"
+                  ><i class="fas fa-chevron-right"></i> Sobre Mí</a
+                >
+              </li>
+              <li>
+                <a href="#habilidades"
+                  ><i class="fas fa-chevron-right"></i> Habilidades</a
+                >
+              </li>
+              <li>
+                <a href="#proyectos"
+                  ><i class="fas fa-chevron-right"></i> Proyectos</a
+                >
+              </li>
+              <li>
+                <a href="#contacto"
+                  ><i class="fas fa-chevron-right"></i> Contacto</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-actions">
+            <h3 class="footer-subtitle">¿Colaboramos?</h3>
+            <a href="cv.pdf" class="footer-cv-btn" target="_blank">
+              <span>Descargar CV</span>
+              <i class="fas fa-cloud-download-alt"></i>
+              <div class="cv-btn-hover"></div>
+            </a>
+            <div class="footer-social">
+              <a
+                href="https://github.com/daninsano1703"
+                target="_blank"
+                class="social-btn github"
+              >
+                <i class="fab fa-github"></i>
+              </a>
+              <a
+                href="https://linkedin.com/in/daniel-favela-a27531332"
+                target="_blank"
+                class="social-btn linkedin"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a
+                href="https://instagram.com/daniel_favel4"
+                target="_blank"
+                class="social-btn instagram"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+  href="https://wa.me/+528713968800"
+  target="_blank"
+  class="social-btn whatsapp"
+  aria-label="WhatsApp"
+>
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copyright">
+            <span class="footer-message"> ¿Qué opinas? Lo bueno, lo malo... y lo raro también. </span>
+          </p>
+          <div class="footer-legal">
+            <p class="fun-legal"></p>
+            <span class="legal-separator">•</span>
+            <p class="fun-legal">
+              📅 Actualizado: <span class="current-date"></span>
+            </p>
+          </div>
+        </div>
       </div>
-    </section>
+    </footer>
+    <!-- Botón para volver arriba -->
+    <a href="#inicio" class="back-to-top" id="backToTop"
+      ><i class="fas fa-arrow-up"></i
+    ></a>
 
-    <section class="tarjetas" id="proyectos">
-      <div class="tarjeta">
-        <h2><i class="fas fa-rocket"></i> Proyectos Destacados</h2>
-        <p><strong>Sistema Escolar Integral</strong> con:</p>
-        <ul>
-          <li>Gestión completa de alumnos y calificaciones</li>
-          <li>Sistema de roles y permisos</li>
-          <li>Filtros avanzados y búsquedas</li>
-          <li>Generación automática de boletas en PDF</li>
-          <li>Interfaz intuitiva y responsive</li>
-        </ul>
-      </div>
+    <!-- Scripts -->
 
-      <div class="tarjeta">
-        <h2><i class="fas fa-project-diagram"></i> Otros Proyectos</h2>
-        <ul>
-          <li><strong>E-commerce:</strong> Carrito de compras, pasarela de pagos</li>
-          <li><strong>Blog personal:</strong> CMS custom, sistema de comentarios</li>
-          <li><strong>Aplicación de tareas:</strong> Drag & drop, notificaciones</li>
-          <li><strong>Landing pages:</strong> Optimizadas para conversión</li>
-        </ul>
-      </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-      <div class="tarjeta" id="contacto">
-        <h2><i class="fas fa-envelope"></i> Contacto</h2>
-        <p><i class="fas fa-envelope"></i> Email: daniel@ejemplo.com</p>
-        <p><i class="fab fa-github"></i> GitHub: <a href="https://github.com/danielfavela" target="_blank">github.com/danielfavela</a></p>
-        <p><i class="fab fa-linkedin"></i> LinkedIn: <a href="#" target="_blank">linkedin.com/in/danielfavela</a></p>
-        <p><i class="fas fa-phone"></i> Teléfono: +52 123 456 7890</p>
-        <p><i class="fas fa-map-marker-alt"></i> Ubicación: Ciudad de México</p>
-      </div>
-    </section>
-  </main>
+    <!-- Typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
-  <footer>
-    <p>© <span id="year"></span> Daniel Favela.</p>
-
-  </footer>
-
-  <script>
-    // Animación para las tarjetas al hacer scroll
-    document.addEventListener('DOMContentLoaded', function() {
-      const tarjetas = document.querySelectorAll('.tarjeta');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.1 });
-      
-      tarjetas.forEach(tarjeta => {
-        observer.observe(tarjeta);
-      });
-      
-      // Crear partículas
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = window.innerWidth < 768 ? 15 : 30;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        // Tamaño aleatorio entre 3px y 8px
-        const size = Math.random() * 5 + 3;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        // Posición aleatoria
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        
-        // Duración de animación aleatoria
-        const duration = Math.random() * 20 + 10;
-        particle.style.animationDuration = `${duration}s`;
-        
-        // Retraso aleatorio
-        particle.style.animationDelay = `${Math.random() * 5}s`;
-        
-        particlesContainer.appendChild(particle);
-      }
-      
-      // Menú móvil
-      const menuToggle = document.getElementById('menuToggle');
-      const navMenu = document.getElementById('navMenu');
-      
-      menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-      });
-      
-      // Cerrar menú al hacer clic en un enlace
-      document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-          menuToggle.classList.remove('active');
-          navMenu.classList.remove('active');
-        });
-      });
-      
-      // Año actual en el footer
-      document.getElementById('year').textContent = new Date().getFullYear();
-      
-      // Suavizar scroll para navegadores que no soportan scroll-behavior
-      if (!('scrollBehavior' in document.documentElement.style)) {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-              behavior: 'smooth'
-            });
-          });
-        });
-      }
-    });
-    
-    // Ajustar altura del header en móviles
-    function adjustHeaderHeight() {
-      if (window.innerWidth < 768) {
-        const header = document.querySelector('header');
-        header.style.minHeight = `${window.innerHeight}px`;
-      }
-    }
-    
-    window.addEventListener('resize', adjustHeaderHeight);
-    adjustHeaderHeight();
-  </script>
-</body>
+    <!-- mi script -->
+    <script src="js/script.js"></script>
+  </body>
 </html>
